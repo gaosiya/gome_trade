@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>交易记录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="m.gome.com.cn">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="applicable-device" content="mobile">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="wap-font-scale" content="no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="trade/trade_issue.css" />
+    <link rel="stylesheet" type="text/css" href="trade/trade_problem.css" />
+    <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+    <script type="text/javascript" src="js/ejs.min.js"></script>
+</head>
+
+<body>
+    <script type="text/template" id="id001">
+        <!--返利-->    
+        <ul>
+            <li><em>金额：</em><span class="l1">&yen;45</span></li>
+            <li><em>类型：</em><span>返利</span></li>
+            <li><em>交易单号：</em><span>1234567890</span></li>
+            <li><em>时间：</em><span>2018-03-22 12：20：23</span></li>
+            <li><em>备注：</em><span>。。。</span></li>
+        </ul>
+    </script>
+    <script type="text/template" id="id002">
+        <!--提现-->
+        <ul>
+            <li><em>金额：</em><span class="l1">¥45</span></li>
+            <li><em>类型：</em><span>提现</span></li>
+            <li><em>交易单号：</em><span>1234567890</span></li>
+            <li><em>手续费：</em><span>¥0.00</span></li>
+            <li><em>提现卡：</em><span>。。。</span></li>
+            <li><em>订单状态：</em><span>。。。</span></li>
+            <li><em>创建时间：</em><span>2018-03-22 12：20：23</span></li>
+            <li><em>完成时间：</em><span>。。。</span></li>
+            <li><em>备注：</em><span>。。。</span></li>
+        </ul>
+    </script>
+    <script type="text/template" id="id003">
+        <!--红包-->
+        <ul>
+            <li><em>金额：</em><span class="l1">¥45</span></li>
+            <li><em>类型：</em><span>红包</span></li>
+            <li><em>交易单号：</em><span>1234567890</span></li>
+            <li><em>手续费：</em><span>¥0.00</span></li>
+            <li><em>提现卡：</em><span>。。。</span></li>
+            <li><em>订单状态：</em><span>。。。</span></li>
+            <li><em>创建时间：</em><span>2018-03-22 12：20：23</span></li>
+            <li><em>完成时间：</em><span>。。。</span></li>
+            <li><em>备注：</em><span>。。。</span></li>                                                      
+    </script>
+    <script type="text/template" id="id004">
+        <p xclass="loading"><img src="trade_img/loading.gif" /></p>
+    </script>
+    <div id="grape"><img src="trade_img/loading.gif" /></div>
+
+    <script type="text/template" id="id005">
+        <p xclass="loading"><img src="trade_img/no-record.png" /></p>
+    </script>
+    <!-- <div class="opg gmb"> 
+    <header class="header">
+        <a href="javascript:;" class="h-back" id='nav_return'>
+            <em class="iconn-1"></em>
+        </a>
+        <div class="h-cnt flex-cell">
+            <h1 class="h-tit">交易详情</h1>
+        </div>
+    </header>
+    <div id="output"></div> -->
+</div> 
+</body>
+<script src="js/trade.js"></script>
+</html>
