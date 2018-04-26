@@ -1,82 +1,166 @@
-
-$(document).ready(function(){
-    $("#grape").hide()
-    $.ajax({
-        type: 'POST',
-        url:'127.0.0.1:3333/shopowner/withdrawCash/v1/transactionRecord',
-        data: {
-
-        },
-        success: function(res){
-            if(res.code==0){
-                let data = res.data.map
-                
-                let htmlstr = ejs.render($("#001").innerHTML,{data:data})
-                
-                $("#output").html(htmlstr)
-            }else{
-                console.log(res.msg)
-            }
+var businessProperty={
+    "sources": '020',
+    "version": '0.1',
+    "businessType": 'TRANSACTION_QUERYUSERYTRANSACTIONS',
+    "invokeSource": 'APP'
+},
+userNo='100041176703',
+pageNo=1,
+pageSize=12,
+transactionTag='',
+utils = {
+    "000":{
+        imgs:'all',
+        text:'全部',
+        temp:''
+    },
+    "040":{
+        imgs:'hongbao',
+        text:'返利'
+    },
+    "010":{
+        imgs:'chongzhi',
+        text:'充值'
+    },
+    "050":{
+        imgs:'tuikuan',
+        text:'退款'
+    },
+    "020":{
+        imgs:'tixian',
+        text:'提现'
+    },
+    "030":{
+        imgs:'fanli',
+        text:'返利'
+    },
+    "093":{
+        imgs:'zhifu',
+        text:'支付'
+    },
+    fColor:(s)=>{
+        let str = 'green'
+        if(s=='+'){
+            return 'red'
         }
-        //,dataType: "json"
-      });
-    if(cs){
-        let html22 = ejs.render(_('id00' + cs).innerHTML, { content: 'stttttsdfsdf收到了见风使舵龙卷风' });
-        $("#output").html(html22);
-    }
-    function ss(cdata){
-        let c = cdata || {
-            "businessProperty":
-            {
-                "sources": '',
-                "version": '',
-                "businessType":	'',
-                "invokeSource":	''
-            },
-            "transactionNo":'',
-            "userNo":''
+        return str
+    },
+    fTime:(time)=>{
+        let newstr = '',
+        ary = time.split("");
+        newstr = ary[0]+ary[1]+ary[2]+ary[3]+'-'+ary[4]+ary[5]+'-'+ary[6]+ary[7]+' '+ary[8]+ary[9]+':'+ary[10]+ary[11]+':'+ary[12]+ary[13]
+        return newstr;
+    },
+    fMoney:(m)=>{
+        m = parseFloat(m);
+        if(isNaN(m)){
+            return 0;
+        }else{
+            m = m/100;
+            return m.toFixed(2);
         }
+    },
+    fUrlstr:(name)=>{
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    },
+    getList:()=>{
         $.ajax({
-            type:'post',
-            url:'127.0.0.1:3333/shopowner/withdrawCash/v1/transactionRecord',
-            data:c,
-            success: function(res){
-                if(res.code==0){
-                    let data = res.data.map
-                    switch(data.transactioTag){
-                        case '030':
-                        let htmlstr = ejs.render($("#001").innerHTML,{data:data})
-                        break;
-                        case '040':
-                        break;
-                        case '010':
-                        break;
-                        default:
-                        break;
-                    }
-                    $("#output").html(htmlstr)
-                }else{
+            url:'http://127.0.0.1:3000/news',
+            success:function(res) {
+                $('.tab-hide').show();
+                if (res.code == 0) {
+                    let datal = res.data.map,
+                    htmlstr = ejs.render($("#t-list").html(), { lists: datal.transactionList })
+
+                    $("#myList").html(htmlstr)
+                } else {
                     console.log(res.msg)
                 }
+            },
+            complete:function(){
+                $('.loading').hide();
+            },
+            error:function(){
+                alert('show err page!')
+                $('#error').show();
             }
-        })
+        });
+    },
+    getDetail:(tag,no)=>{
+
+        $('.loading').show();
+        $('#t-list').hide();
+        $('#myDetail').show();
+        // shekong
+        var tag = utils.fUrlstr('tag'),
+        no=utils.fUrlstr('no');
+        $.ajax({
+            type: 'post',
+            url: 'http://127.0.0.1:3333/shopowner/withdrawCash/v1/transactionRecord',
+            data: {
+                "businessProperty": businessProperty,
+                "transactionNo": ''+no,
+                "userNo": userNo
+            },
+            success: function (res) {
+                if (res.code == 0) {
+                    $('.tab-hide').hide();
+                    $('.loading').show(); 
+                    let data = res.data, htmlstr = '';
+                    htmlstr = ejs.render($("#"+tag).innerHTML, { data: data })
+                    $("#myDetail").html(htmlstr)
+                } else {
+                    console.log(res.msg)
+                }
+            },
+            error:function(){
+                alert('err');
+            }
+        });
+    },
+    backList:()=>{
+        
+    }
+}
+$('h-cnt p').click(function(){
+    $(".box").slideUp(3000);
+})
+$("#btn1").click(function () {
+    $(".box").slideDown(3000);
+})
+
+$(document).ready(function () {
+    $("#grape").hide()    
+    if (utils.fUrlstr('tag')&&utils.fUrlstr('no')) {//detail页面
+        utils.getDetail()
+    }else{//list页面，还需要修改后续获取数据的参数，post&data！！！
+        utils.getList();      
     }
 })
-$(document).on('click','.header p',function(){
-   $(".but-box").slideDown();
-}).mouseleave(function(){
-   $(".but-box").slideUp();
+$(window).on("hashchange", function() {
+    console.log('has chg')
+    utils.getDetail()
+});
+$(document).on('click', '.header p', function showpayWays () {
+    $('#master').show();
+    $(".but-box").slideDown(200)
+});
+$(document).on('click','.b-close',function(){
+    $('#master').hide();
+    $(".but-box").slideUp(200)
+});
+$(document).on('click','#master',function(){
+    $('#master').hide();
+    $(".but-box").slideUp(200)
+})
+$(document).on('click','.but-box ul li',function(){
+    $('#master').hide();
+    $(".but-box").slideUp(200)
 })
 
-function _(id) {
-    return document.getElementById(id)
-}
-//
-let cs = getstr('id');
-
-function getstr(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
-    return null;
-}
+// .mouseleave(function () {
+//     $(".but-box").slideUp();
+// })

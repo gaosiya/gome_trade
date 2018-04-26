@@ -186,9 +186,7 @@ html {
    .opg #output .loading {
     background: #F3F5F7;
    } 
-   .opg img{
-     width:30px;
-     height:30px;
+   .opg img{    
      text-align: center;
      margin: 0 auto
    } 
@@ -1516,13 +1514,55 @@ html {
       top: 50%;
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%); }
+      .loading {
+        height: 12rem;
+        background: url('../trade_img/loading.gif') no-repeat center center;
+      }
+      .tab-hide {
+        display: none
+      }
+      #error {
+        display: none;
+        position: fixed;
+        z-index:1000;
+        top:35%;
+        bottom:0;
+        width: 100%;
+        height: 100%;
+      }
+      #error img {
+        width:3.2rem;
+        height:3.2rem;
+      }
+      #error p {
+        width: 100%;
+        text-align: center;
+        font-family: PingFangSC-Regular;
+        font-size: .13rem;
+        color: #999999;
+        letter-spacing: 0;
+        line-height: .225rem;
+      }
   /*but-box*/
-  .opg .but-box {
-    width: 100%;
-    height: 7rem;
+  #master {
     position: fixed;
+    top: 0;
+    left: 0;
     bottom: 0;
-    left: 0;}
+    right: 0;
+    z-index: 20;
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .opg .but-box {
+    z-index: 30;
+    width: 100%;
+    position: fixed;
+    display: none;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+  }
     .opg .but-box .b-hit {
       text-align: center;
       line-height: 55px;
@@ -1534,10 +1574,6 @@ html {
       height: 55px;}  
     .opg .but-box ul {
       padding-left: 15px;}
-    .opg .but-box .b-li1 {
-      height: 1.1rem;
-      line-height: 1.1rem;
-    }
     .opg .but-box .b-li {
       line-height: .96rem;
       height: .96rem;
@@ -1914,6 +1950,7 @@ html {
     border: 2px solid #666;
     border-bottom-color: transparent;
     vertical-align: middle;
+    z-index: 999;
     /*-webkit-animation: rotate 0.75s 0 linear infinite;
     animation: rotate 0.75s 0 linear infinite;*/ }
   

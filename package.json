@@ -1,0 +1,22 @@
+{
+  "name": "gaosiya",
+  "version": "1.0.0",
+  "description": "app交易列表",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "dependencies": {
+    "koa":"2.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaosiya/gome_trade.git"
+  },
+  "author": "sarah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaosiya/gome_trade/issues"
+  },
+  "homepage": "https://github.com/gaosiya/gome_trade#readme"
+}
