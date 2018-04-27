@@ -68,7 +68,7 @@ utils = {
     },
     getList:()=>{
         $.ajax({
-            url:'http://127.0.0.1:3000/news',
+            url:'/transactionCodelist',
             success:function(res) {
                 $('.tab-hide').show();
                 if (res.code == 0) {
@@ -98,8 +98,8 @@ utils = {
         var tag = utils.fUrlstr('tag'),
         no=utils.fUrlstr('no');
         $.ajax({
-            type: 'post',
-            url: 'http://127.0.0.1:3333/shopowner/withdrawCash/v1/transactionRecord',
+            type: 'get',
+            url: '/transactionRecord',
             data: {
                 "businessProperty": businessProperty,
                 "transactionNo": ''+no,
