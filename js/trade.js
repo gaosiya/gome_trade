@@ -66,6 +66,17 @@ utils = {
         if (r != null) return unescape(r[2]);
         return null;
     },
+    fHashstr:(key)=>{
+        var arr = (location.hash || "").replace(/^\#/,'').split("&");
+        var params = {};
+        for(var i=0; i<arr.length; i++){
+            var data = arr[i].split("=");
+            if(data.length == 2){
+                params[data[0]] = data[1];
+            }
+        }
+        return params[key];
+    },
     getList:()=>{
         $.ajax({
             url:'/transactionCodelist',
@@ -95,8 +106,8 @@ utils = {
         $('#t-list').hide();
         $('#myDetail').show();
         // shekong
-        var tag = utils.fUrlstr('tag'),
-        no=utils.fUrlstr('no');
+        var tag = utils.fHashstr('tag'),
+        no=utils.fHashstr('no');
         $.ajax({
             type: 'get',
             url: '/transactionRecord',
@@ -134,7 +145,7 @@ $("#btn1").click(function () {
 
 $(document).ready(function () {
     $("#grape").hide()    
-    if (utils.fUrlstr('tag')&&utils.fUrlstr('no')) {//detail页面
+    if (utils.fHashstr('tag')&&utils.fHashstr('no')) {//detail页面
         utils.getDetail()
     }else{//list页面，还需要修改后续获取数据的参数，post&data！！！
         utils.getList();      
